@@ -1,3 +1,4 @@
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 import { TLoginUser, TUser } from './User.Interface';
 import { UserModel } from './User.Model';
@@ -81,4 +82,54 @@ const loginUser = async (payload: TLoginUser) => {
   };
 };
 
-export const UserService = { createUserIntoDB, loginUser };
+///refreshToken
+const refreshToken = async (token: string) => {
+  if (!token) {
+    throw new AppError(StatusCodes.UNAUTHORIZED, 'you are UNAUTHORIZED');
+  }
+
+  //checking if the token valid
+
+  const decoded = jwt.verify(
+    token,
+    config.jwt_refresh_secret as string,
+  ) as JwtPayload;
+
+  const { email } = decoded;
+
+  // Check if the user exists
+  const user = await UserModel.isUserExistsByEmail(email);
+
+  if (!user) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'User not found');
+  }
+
+  // Check if the user is deleted
+  const isDeleted = user?.isDeleted;
+  if (isDeleted) {
+    throw new AppError(StatusCodes.FORBIDDEN, 'This user is deleted');
+  }
+
+  // Check if the user is blocked
+  const isBlocked = user?.isBlocked;
+  if (isBlocked) {
+    throw new AppError(StatusCodes.FORBIDDEN, 'This user is blocked');
+  }
+
+  const jwtPayload = {
+    email: user?.email,
+    role: user?.role,
+  };
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string,
+  );
+
+  return {
+    accessToken,
+  };
+};
+
+export const UserService = { createUserIntoDB, loginUser, refreshToken };

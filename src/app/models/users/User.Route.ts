@@ -19,4 +19,11 @@ router.post(
   UserControllers.loginUser,
 );
 
+
+router.post(
+  '/refresh-token',
+  validateRequest(UserValidation.refreshTokenValidationSchema),
+  UserControllers.refreshToken,
+);
+
 export const UserRouters = router;

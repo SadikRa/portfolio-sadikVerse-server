@@ -38,7 +38,21 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
+//refreshESGToken
+const refreshToken = catchAsync(async (req, res) => {
+  const { refreshToken } = req.cookies;
+  const result = await UserService.refreshToken(refreshToken);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'access token retrieved success',
+    data: result,
+  });
+});
+
 export const UserControllers = {
   createUser,
   loginUser,
+  refreshToken,
 };
