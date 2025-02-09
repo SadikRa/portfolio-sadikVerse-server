@@ -34,13 +34,6 @@ const userSchema = new Schema<IUserDocument, UserModelInterface>(
       enum: ['user', 'admin'],
       default: 'user',
     },
-    needsPasswordChange: {
-      type: Boolean,
-      default: true,
-    },
-    passwordChangedAt: {
-      type: Date,
-    },
     isBlocked: {
       type: Boolean,
       default: false,
@@ -75,15 +68,6 @@ userSchema.statics.isUserExistsByEmail = async function (email: string) {
 
 userSchema.statics.isUserPasswordMatch = async function (TextPass, hasPass) {
   return await bcrypt.compare(TextPass, hasPass);
-};
-
-userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
-  passwordChangedTimestamp: Date,
-  jwtIssuedTimestamp: number,
-) {
-  const passwordChangedTime =
-    new Date(passwordChangedTimestamp).getTime() / 1000;
-  return passwordChangedTime > jwtIssuedTimestamp;
 };
 
 export const UserModel = model<IUserDocument, UserModelInterface>(

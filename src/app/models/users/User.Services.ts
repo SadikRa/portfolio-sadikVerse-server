@@ -1,9 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
-import { TUser } from './User.Interface';
+import { TLoginUser, TUser } from './User.Interface';
 import { UserModel } from './User.Model';
 import AppError from '../../errors/AppError';
-import { userSearchableFields } from './User.Constant';
-import QueryBuilder from '../../builder/QueryBuilder';
+import { createToken } from '../../../utils/auth.utils';
+import config from '../../config';
 
 const createUserIntoDB = async (user: TUser) => {
   // Check if user already exists

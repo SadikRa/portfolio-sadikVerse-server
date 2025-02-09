@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { UserService } from './User.Services';
 import catchAsync from '../../../utils/catchAsync';
 import sendResponse from '../../../utils/sendResponse';
+import config from '../../config';
 
 const createUser = catchAsync(async (req, res) => {
   const userData = req.body;
@@ -18,7 +19,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const loginUser = catchAsync(async (req, res) => {
-  const result = await AuthServices.loginUser(req.body);
+  const result = await UserService.loginUser(req.body);
 
   const { refreshToken, accessToken } = result;
 
