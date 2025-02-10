@@ -6,6 +6,7 @@ const blogValidationSchema = z.object({
       .string()
       .min(5, { message: 'Title must be at least 5 characters long.' })
       .max(100, { message: 'Title cannot exceed 100 characters.' }),
+    thumbnails: z.string().url('Invalid thumbnail URL'),
     content: z
       .string()
       .min(20, { message: 'Content must be at least 20 characters long.' }),

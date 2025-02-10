@@ -1,6 +1,6 @@
-
 export interface IBlog {
-  title: string; 
-  content: string; 
-  isPublished: boolean; 
+  title: string;
+  thumbnails: string;
+  content: string;
+  isPublished: boolean;
 }

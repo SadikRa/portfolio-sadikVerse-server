@@ -2,6 +2,8 @@ import { StatusCodes } from 'http-status-codes';
 import { blogService } from './blog.service';
 import catchAsync from '../../../utils/catchAsync';
 import sendResponse from '../../../utils/sendResponse';
+import AppError from '../../errors/AppError';
+import { Blog } from './blog.model';
 
 //create blog
 const createBlog = catchAsync(async (req, res) => {
@@ -56,9 +58,25 @@ const getAllBlogs = catchAsync(async (req, res) => {
   });
 });
 
+const getBlogById = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const blog = await Blog.findById(id);
+  if (!blog) {
+    throw new AppError(StatusCodes.NOT_FOUND, 'Blog not found!');
+  }
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: 'Blog retrieved successfully',
+    data: blog,
+  });
+});
+
 export const blogController = {
   createBlog,
   updateBlog,
   deleteBlog,
   getAllBlogs,
+  getBlogById,
 };
