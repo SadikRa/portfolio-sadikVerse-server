@@ -1,5 +1,4 @@
 import { StatusCodes } from 'http-status-codes';
-
 import { UserService } from './User.Services';
 import catchAsync from '../../../utils/catchAsync';
 import sendResponse from '../../../utils/sendResponse';

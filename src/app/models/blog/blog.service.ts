@@ -3,19 +3,12 @@ import { StatusCodes } from 'http-status-codes';
 import { IBlog } from './blog.interface';
 import { Blog } from './blog.model';
 import AppError from '../../errors/AppError';
-import QueryBuilder from '../../builder/QueryBuilder';
-import { blogSearchableFields } from './blog.constant';
 
 // Create blog
-const createBlogIntoDB = async (user: any, data: IBlog) => {
-  if (user.role !== 'user') {
-    throw new AppError(StatusCodes.FORBIDDEN, 'Only users can create blogs');
-  }
-
-  data.author = user.email;
+const createBlogIntoDB = async (data: IBlog) => {
   const result = await Blog.create(data);
 
-  return result.populate('author');
+  return result;
 };
 
 // Update blog
@@ -54,15 +47,8 @@ const deleteBlogFromDB = async (blogId: string) => {
 };
 
 //get all blogs
-const getAllBlogFromDB = async (query: Record<string, unknown>) => {
-  const blogQuery = new QueryBuilder(Blog.find().populate('author'), query)
-    .search(blogSearchableFields)
-    .filter()
-    .sort()
-    .paginate()
-    .fields();
-
-  const result = await blogQuery.modelQuery;
+const getAllBlogFromDB = async () => {
+  const result = await Blog.find();
   return result;
 };
 

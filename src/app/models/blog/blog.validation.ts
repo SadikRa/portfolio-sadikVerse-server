@@ -9,9 +9,7 @@ const blogValidationSchema = z.object({
     content: z
       .string()
       .min(20, { message: 'Content must be at least 20 characters long.' }),
-    author: z
-      .string()
-      .regex(/^[a-f\d]{24}$/i, { message: 'Author must be a valid ObjectId.' }),
+
     isPublished: z.boolean().default(false),
   }),
 });

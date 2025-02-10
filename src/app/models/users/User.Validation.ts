@@ -7,7 +7,8 @@ const userValidationSchema = z.object({
       .string()
       .email({ message: 'Please provide a valid email address' })
       .nonempty({ message: 'Email cannot be empty' }),
-    password: z
+      image: z.string().trim().nonempty({ message: 'image is required.' }),
+      password: z
       .string()
       .min(6, { message: 'Password must be at least 6 characters long' }),
     role: z.enum(['user', 'admin']).default('user').optional(),

@@ -23,6 +23,11 @@ const userSchema = new Schema<IUserDocument, UserModelInterface>(
       lowercase: true,
       match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
     },
+    image: {
+      type: String,
+      required: [true, 'image is required'],
+      trim: true,
+    },
     password: {
       type: String,
       select: 0,

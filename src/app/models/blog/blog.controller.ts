@@ -1,14 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
 import { blogService } from './blog.service';
-import sendResponse from '../../utils/sendResponse';
-import catchAsync from '../../utils/catchAsync';
+import catchAsync from '../../../utils/catchAsync';
+import sendResponse from '../../../utils/sendResponse';
 
 //create blog
 const createBlog = catchAsync(async (req, res) => {
-  const user = req.user;
   const data = req.body;
 
-  const result = await blogService.createBlogIntoDB(user, data);
+  const result = await blogService.createBlogIntoDB(data);
 
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
@@ -48,7 +47,7 @@ const deleteBlog = catchAsync(async (req, res) => {
 
 //get all data blog
 const getAllBlogs = catchAsync(async (req, res) => {
-  const result = await blogService.getAllBlogFromDB(req.query);
+  const result = await blogService.getAllBlogFromDB();
 
   res.status(200).json({
     success: true,

@@ -12,10 +12,6 @@ const blogSchema = new Schema<IBlog>(
       type: String,
       required: true,
     },
-    author: {
-      type: String,
-      required: true,
-    },
     isPublished: {
       type: Boolean,
       default: false,

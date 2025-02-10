@@ -5,6 +5,7 @@ import { USER_ROLE } from './User.Constant';
 export interface TUser {
   name: string;
   email: string;
+  image: string;
   password: string;
   role: 'user' | 'admin';
   isBlocked: boolean;
