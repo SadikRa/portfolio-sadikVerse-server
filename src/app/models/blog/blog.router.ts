@@ -12,8 +12,7 @@ router.post(
   blogController.createBlog,
 );
 
-router.get("/blogs/:id", blogController.getBlogById);
-
+router.get('/blogs/:id', blogController.getBlogById);
 
 //update blog
 router.patch(

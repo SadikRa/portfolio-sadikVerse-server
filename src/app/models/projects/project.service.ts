@@ -1,7 +1,7 @@
-import { StatusCodes } from "http-status-codes";
-import { ProjectModel } from "./project.model";
-import AppError from "../../errors/AppError";
-import { TProject } from "./project.Interface";
+import { StatusCodes } from 'http-status-codes';
+import { ProjectModel } from './project.model';
+import AppError from '../../errors/AppError';
+import { TProject } from './project.interface';
 
 // Create a project
 const createProjectIntoDB = async (data: TProject) => {
@@ -10,10 +10,13 @@ const createProjectIntoDB = async (data: TProject) => {
 };
 
 // Update a project
-const updateProjectIntoDB = async (projectID: string, data: Partial<TProject>) => {
+const updateProjectIntoDB = async (
+  projectID: string,
+  data: Partial<TProject>,
+) => {
   const project = await ProjectModel.findById(projectID);
   if (!project) {
-    throw new AppError(StatusCodes.NOT_FOUND, "Project not found!");
+    throw new AppError(StatusCodes.NOT_FOUND, 'Project not found!');
   }
 
   const updatedProject = await ProjectModel.findByIdAndUpdate(projectID, data, {
@@ -24,7 +27,7 @@ const updateProjectIntoDB = async (projectID: string, data: Partial<TProject>) =
   if (!updatedProject) {
     throw new AppError(
       StatusCodes.INTERNAL_SERVER_ERROR,
-      "Failed to update the project"
+      'Failed to update the project',
     );
   }
 
@@ -36,7 +39,7 @@ const deleteProjectFromDB = async (projectId: string) => {
   const project = await ProjectModel.findById(projectId);
 
   if (!project) {
-    throw new AppError(StatusCodes.NOT_FOUND, "Project not found!");
+    throw new AppError(StatusCodes.NOT_FOUND, 'Project not found!');
   }
 
   await ProjectModel.findByIdAndDelete(projectId);

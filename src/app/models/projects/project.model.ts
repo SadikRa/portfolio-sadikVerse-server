@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { TProject } from './project.Interface';
+import { TProject } from './project.interface';
+
+
 
 const projectSchema = new Schema<TProject>(
   {

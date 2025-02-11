@@ -1,4 +1,4 @@
-export type TProject = {
+export interface TProject {
   title: string;
   description: string;
   image: string;
@@ -6,4 +6,4 @@ export type TProject = {
   technologies: string[];
   createdAt?: Date;
   updatedAt?: Date;
-};
+}
