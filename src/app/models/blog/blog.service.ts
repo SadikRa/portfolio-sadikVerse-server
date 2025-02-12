@@ -35,7 +35,7 @@ const updateBlogIntoDB = async (blogID: string, data: Partial<IBlog>) => {
 
 // Delete a blog from the database
 const deleteBlogFromDB = async (blogId: string) => {
-  const blog = await Blog.findById(blogId).populate('author');
+  const blog = await Blog.findById(blogId);
 
   if (!blog) {
     throw new AppError(StatusCodes.NOT_FOUND, 'Blog not found!');
