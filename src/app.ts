@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'https://sadikverse.vercel.app', credentials: true }));
 
 // Application routes
 

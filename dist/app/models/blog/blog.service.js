@@ -39,7 +39,7 @@ const updateBlogIntoDB = (blogID, data) => __awaiter(void 0, void 0, void 0, fun
 });
 // Delete a blog from the database
 const deleteBlogFromDB = (blogId) => __awaiter(void 0, void 0, void 0, function* () {
-    const blog = yield blog_model_1.Blog.findById(blogId).populate('author');
+    const blog = yield blog_model_1.Blog.findById(blogId);
     if (!blog) {
         throw new AppError_1.default(http_status_codes_1.StatusCodes.NOT_FOUND, 'Blog not found!');
     }
